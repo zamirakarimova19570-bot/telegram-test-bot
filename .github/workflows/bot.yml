@@ -1,33 +1,36 @@
-name: 24/7 Telegram Bot
+name: Bot Test
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:  # Qo'lda ishga tushirish
-  schedule:
-    # Har 30 daqiqada (24/7 ishlashi uchun)
-    - cron: '*/30 * * * *'
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
-  run-bot:
+  test:
     runs-on: ubuntu-latest
-    
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-        
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        
-    - name: Run Telegram Bot
-      env:
-        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-      run: |
-        echo "🤖 Bot ishga tushmoqda..."
-        python bot.py
+      - name: GitHub repozitoriyasini yuklab olish
+        uses: actions/checkout@v4
+
+      - name: Python ${{ matrix.python-version }} ni sozlash
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Talablarni o'rnatish
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Python sintaksisini tekshirish
+        run: |
+          python -m py_compile bot.py
+
+      - name: Oddiy ishlash testi (token yo'q, shunchaki import)
+        run: |
+          python -c "import bot; print('✅ bot.py muvaffaqiyatli import qilindi')"
