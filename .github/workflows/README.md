@@ -1,23 +1,45 @@
-# 🤖 24/7 Telegram Test Bot
+# 🧹 CleanGroupBot — Spamga Qarshi Guruh Tozalovchi Bot
 
-Umrbod bepul 24/7 ishlaydigan Telegram test boti.
+Ushbu bot **Telegram guruhlarida spam, reklama, linklar va nojo'ya tarkibni avtomatik o'chirib tashlaydi**.  
+Botni **Replit**da 24/7 ishlatish juda oson!
 
-## ✨ Xususiyatlar
-- ✅ 24/7 ishlaydi
-- ✅ Umrbod bepul
-- ✅ Test ishlash
-- ✅ Natijalarni ko'rish
-- ✅ GitHub Actions platformasi
+---
 
-## 🚀 O'rnatish
+## 🌟 Xususiyatlar
 
-### 1. GitHub Secrets sozlash
-Repository settings → Secrets → Actions → New repository secret:
-- **Name:** `BOT_TOKEN`
-- **Value:** `8587222975:AAEq18hC7QrRF1UsNv88JX4q9enU4iCvXTw`
+- 🔗 Barcha linklarni blokirovka qiladi (`t.me/`, `https://`, `www.`)
+- 📢 Spam so'zlarni aniqlaydi: "pul ishlash", "kredit", "18+", "reklama" va boshqalar
+- 🧹 Xabarni avtomatik o'chiradi + 10 soniya ogohlantirish
+- 👤 Faqat guruhda ishlaydi (shaxsiy chatlarda faol emas)
 
-### 2. Workflow ni ishga tushirish
-Actions → 24/7 Telegram Bot → Run workflow
+---
 
-## 📞 Aloqa
-Muammo bo'lsa: @isoqov_co
+## ▶️ Replitda Botni Sozlash (2 daqiqa)
+
+### 1. GitHub repozitoriyasini yarating
+- Ushbu fayllarni GitHubga qo'ying:
+  - `bot.py`
+  - `requirements.txt`
+  - `.gitignore`
+  - `README.md` (shu fayl)
+
+> ❗ **Muhim**: Hech qachon `BOT_TOKEN`ni GitHubda saqlamang!
+
+### 2. Replit.com ga kiring
+- [replit.com](https://replit.com) ga kiring (GitHub hisobingiz bilan kiring).
+- **+ Create Repl** → **Import from GitHub**.
+- Sizning `clean-group-bot` repozitoriyangizni tanlang.
+
+### 3. `.env` faylini sozlang (Replitda)
+- Replit loyiha ochilganda chap tomonda **"Secrets"** (🔒) tugmasini bosing.
+- Yangi **Secret** qo'shing:
+  - **Key**: `BOT_TOKEN`
+  - **Value**: `8577664982:AAFIz8yMn-4SHLCCtFXvDOmHYG8PkIz5SEg` (sizning token)
+
+### 4. `bot.py` dagi koddan token o'chirilganligiga ishonch hosil qiling:
+```python
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # Replit Secrets orqali ishlaydi
